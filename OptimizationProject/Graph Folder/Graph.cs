@@ -23,5 +23,9 @@ namespace OptimizationProject.Graph_Folder
             int SizeModule = Convert.ToInt32(attributes[4]);
             Edges.Add(new Edge(Start, End, SizeModule, NumberModules, CostModule)); 
         }
+        public void CreateEdge(int Start, int End, int NumberModules, int CostModule, int SizeModule)
+        {
+            Edges.Add(new Edge(Start, End, SizeModule, NumberModules, CostModule));
+        }
     }
 }

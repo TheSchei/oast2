@@ -50,7 +50,7 @@ namespace OptimizationProject
                 else
                 {
                     FillDataToAlgorithm();
-                    Algorithm.Graphs.AddRange(Pars.ReadConfigFiles());
+                    Algorithm.Graphs.AddRange(Pars.ReadConfigFiles(FileChooser()));
                     Algorithm.Run(StartingPopulation, ProbabilityCrossOver, ProbabilityOfMutation, TimeGeneratorSeed,Condition, NumberOfCases);
                     
                 }
@@ -106,6 +106,13 @@ namespace OptimizationProject
             Console.WriteLine("2.Number of Generations");
             Console.WriteLine("3.Number of Mutations");
             Console.WriteLine("4.No Better solution");
+        }
+
+        private int FileChooser()//nie chce mi sie robić debiloodpornego
+        {
+            Console.WriteLine("Jaka parówa wariacie?");
+            Pars.PrintFiles();
+            return Convert.ToInt32(Console.ReadLine()) - 1;
         }
     }
 }
