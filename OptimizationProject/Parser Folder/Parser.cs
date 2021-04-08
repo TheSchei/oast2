@@ -15,8 +15,8 @@ namespace OptimizationProject.Parser_Folder
         public Parser()
         {
             Files = new List<string>();
+            FullPath = Path.GetFullPath(CONF_FOLDER)
             Files.AddRange(Directory.GetFiles(FullPath, "*.txt"));
-            FullPath= Path.GetFullPath(CONF_FOLDER);
         }
         public List<Graph> ReadConfigFiles()
         {
