@@ -11,13 +11,12 @@ namespace OptimizationProject.Algorithm_Folder
     {
         List<Result> DAPResults;
         List<Result> DDAPResults;
-        public List<Graph> Graphs;
+        public Graph Graph;
 
         public EAlgorithm()
         {
             DAPResults = new List<Result>();
             DDAPResults = new List<Result>();
-            Graphs = new List<Graph>();
         }
         public void Run(int StartingPopulation,double ProbabilityCrossOver, double ProbabilityMutation, int TimeGeneratorSeed, StopCondition Condition,int NumberOfCases)
         {

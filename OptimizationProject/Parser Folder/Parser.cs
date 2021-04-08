@@ -16,12 +16,11 @@ namespace OptimizationProject.Parser_Folder
         public Parser()
         {
             Files = new List<string>();
-            FullPath = Path.GetFullPath(CONF_FOLDER);
+            FullPath = System.IO.Path.GetFullPath(CONF_FOLDER);
             Files.AddRange(Directory.GetFiles(FullPath, "*.xml"));
         }
-        public List<Graph> ReadConfigFiles(int choosenFileIndex)
+        public Graph ReadConfigFiles(int choosenFileIndex)
         {
-            List<Graph> Graphs = new List<Graph>();
             Graph graph = new Graph();
             XmlDocument doc = new XmlDocument();
             doc.Load(Files[choosenFileIndex]);
@@ -35,9 +34,28 @@ namespace OptimizationProject.Parser_Folder
                 int SizeModule = Convert.ToInt32(edge.SelectSingleNode("linkModule").InnerText);
                 graph.CreateEdge(Start, End, NumberModules, CostModule, SizeModule);
             }
-            Graphs.Add(graph);
             // wczytanie zapotrzebowań
-            return Graphs;
+            XmlNodeList demands = doc.DocumentElement.SelectNodes("/network/demands/demand");
+            foreach (XmlNode demand in demands)
+            {
+                int Start = Convert.ToInt32(demand.SelectSingleNode("startNode").InnerText);
+                int End = Convert.ToInt32(demand.SelectSingleNode("endNode").InnerText);
+                int volume = Convert.ToInt32(demand.SelectSingleNode("volume").InnerText);
+                XmlNodeList pathNodes = demand.SelectNodes("paths/path");
+                List<Graph_Folder.Path> paths = new List<Graph_Folder.Path>();
+                foreach (XmlNode path in pathNodes)
+                {
+                    List<int> linkIDs = new List<int>();
+                    XmlNodeList links = path.SelectNodes("linkId");
+                    foreach (XmlNode link in links)
+                    {
+                        linkIDs.Add(Convert.ToInt32(link.InnerText));
+                    }
+                    paths.Add(new Graph_Folder.Path(linkIDs));
+                }
+                graph.CreateDemand(Start, End, volume, paths);
+            }
+            return graph;
         }
         public void WriteResultToFile(Result result)
         {
@@ -46,7 +64,7 @@ namespace OptimizationProject.Parser_Folder
         public void PrintFiles()
         {
             for (int i = 1; i <= Files.Count; i++)
-                Console.WriteLine("{0}. {1}", i, Path.GetFileName(Files[i - 1]));
+                Console.WriteLine("{0}. {1}", i, System.IO.Path.GetFileName(Files[i - 1]));
         }
 
     }

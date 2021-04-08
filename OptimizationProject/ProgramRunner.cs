@@ -50,7 +50,7 @@ namespace OptimizationProject
                 else
                 {
                     FillDataToAlgorithm();
-                    Algorithm.Graphs.AddRange(Pars.ReadConfigFiles(FileChooser()));
+                    Algorithm.Graph = Pars.ReadConfigFiles(FileChooser());
                     Algorithm.Run(StartingPopulation, ProbabilityCrossOver, ProbabilityOfMutation, TimeGeneratorSeed,Condition, NumberOfCases);
                     
                 }

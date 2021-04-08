@@ -8,7 +8,6 @@ namespace OptimizationProject.Graph_Folder
     {
         public int StartNode { get; set; }
         public int EndNode { get; set; }
-
         public int SizeOfModule { get; set; }
         public int NumberOfModules { get; set; }
         public int CostOfModule { get; set; }
