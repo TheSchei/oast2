@@ -9,12 +9,14 @@
 
 # Build results
 
-[Dd]ebug/
-[Rr]elease/
-x64/
-build/
-[Bb]in/
-[Oo]bj/
+OptimizationProject/[Dd]ebug/
+OptimizationProject/[Rr]elease/
+OptimizationProject/x64/
+OptimizationProject/build/
+OptimizationProject/[Bb]in/
+OptimizationProject/[Oo]bj/
+.vs/
+
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
