@@ -108,11 +108,24 @@ namespace OptimizationProject
             Console.WriteLine("4.No Better solution");
         }
 
-        private int FileChooser()//nie chce mi sie robić debiloodpornego
+        private int FileChooser()
         {
-            Console.WriteLine("Jaka parówa wariacie?");
-            Pars.PrintFiles();
-            return Convert.ToInt32(Console.ReadLine()) - 1;
+            int theChoosenOne = 0;
+            while(theChoosenOne <= 0 || theChoosenOne > Pars.Files.Count)
+            {
+                Console.WriteLine("Jaka parówa wariacie?");
+                Pars.PrintFiles();
+                try
+                {
+                    theChoosenOne = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Parówa mówiłem");
+                    theChoosenOne = 0;
+                }
+            }
+            return theChoosenOne - 1;
         }
     }
 }
