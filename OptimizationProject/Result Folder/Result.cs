@@ -21,6 +21,10 @@ namespace OptimizationProject.Result_Folder
 
             return ResultString;
         }
+        public string getFileName()
+        {
+            return TypeOfResult.ToString() + "::" + TimeStamp.ToString();
+        }
 
 
     }

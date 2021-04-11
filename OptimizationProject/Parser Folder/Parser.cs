@@ -59,7 +59,16 @@ namespace OptimizationProject.Parser_Folder
         }
         public void WriteResultToFile(Result result)
         {
-
+            string RESULT_FOLDER = @"..\..\..\Result files";
+            if (!Directory.Exists(RESULT_FOLDER)) Directory.CreateDirectory(RESULT_FOLDER);//warunek jest chyba niepotrzebny, ale niech już będzie
+            FileStream outputFile = File.Create(RESULT_FOLDER + "\\" + result.getFileName() + ".txt");
+            writeLine(outputFile, "Nazywam się" + result.getFileName());
+            writeLine(outputFile, "Wyniczki");//na pewno da się zrobić to lepiej, ale jak to zobaczyłme, to tak mi C zajechało, że się nie mogłem powstrzymać
+        }
+        private void writeLine(FileStream fs, string s)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(s + Environment.NewLine);
+            fs.Write(info, 0, info.Length);
         }
         public void PrintFiles()
         {
