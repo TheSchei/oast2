@@ -22,5 +22,12 @@ namespace OptimizationProject.Graph_Folder
         {
             Demands.Add(new Demand(Start, End, volume, paths));
         }
+        public int getMaxNumberOfPaths()
+        {
+            int ret = 0;
+            foreach (Demand d in Demands)
+                if(d.Paths.Count > ret) ret = d.Paths.Count;
+            return ret;
+        }
     }
 }

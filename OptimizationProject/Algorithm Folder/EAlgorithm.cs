@@ -22,12 +22,14 @@ namespace OptimizationProject.Algorithm_Folder
         {
             for (int i = 0; i < NumberOfCases; i++)
             {
-                DAPResults.Add(RunDAPCase());
+                DAPResults.Add(RunDAPCase(StartingPopulation, ProbabilityCrossOver, ProbabilityMutation, TimeGeneratorSeed, Condition));
                 DDAPResults.Add(RunDDAPCase());
             }
         }
-        public Result RunDAPCase()
+        public Result RunDAPCase(int StartingPopulation, double ProbabilityCrossOver, double ProbabilityMutation, int TimeGeneratorSeed, StopCondition Condition)
         {
+
+
             return null;
         }
         public Result RunDDAPCase()
