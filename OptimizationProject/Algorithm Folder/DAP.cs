@@ -19,10 +19,12 @@ namespace OptimizationProject.Algorithm_Folder
         Random random;
         private List<DAPchromosome> CurrentResultsTable;
         private List<DAPchromosome> TemporaryResultsTable;
+        private List<DAPchromosome> BestSolutionStack;
         private int Time;
         private int NoMutations;
         private int NoGenerations;//CO TO JEST? XD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private int NoBetterSolutions;//Ilość iteracji bez poprawy
+        private int bestSolutionValue;
 
         public DAP(Graph graph, StopCondition condition, int startingPopulation, double probabilityCrossOver, double probabilityMutation, int timeGeneratorSeed, int conditionValue)
         {
@@ -41,7 +43,10 @@ namespace OptimizationProject.Algorithm_Folder
             NoMutations = 0;
             NoGenerations = 0;
             NoBetterSolutions = 0;
-
+            CurrentResultsTable.Sort((x, y) => x.value.CompareTo(y.value));
+            bestSolutionValue = CurrentResultsTable[0].value;
+            BestSolutionStack = new List<DAPchromosome>();
+            BestSolutionStack.Add(new DAPchromosome(CurrentResultsTable[0]));
         }
 
         public Result run()
@@ -100,7 +105,13 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void checkNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
         {
-            throw new NotImplementedException();
+            if (bestSolutionValue > CurrentResultsTable[0].value) NoBetterSolutions++;
+            else
+            {
+                NoBetterSolutions = 0;
+                bestSolutionValue = CurrentResultsTable[0].value;
+                BestSolutionStack.Add(new DAPchromosome(CurrentResultsTable[0]));
+            }
         }
     }
 }
