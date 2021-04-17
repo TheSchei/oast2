@@ -47,5 +47,13 @@ namespace OptimizationProject.Algorithm_Folder
             calculateValue(graph);//nowy zmutowany walju
             return NoMutations;
         }
+        public DAPchromosome cross(Random random, DAPchromosome second, Graph graph)
+        {
+            DAPchromosome temp = new DAPchromosome(this);
+            for (int i = 0; i < CurrentResultTable2.Count; i++)
+                if (random.Next(0, 1) == 1) temp.CurrentResultTable2[i] = new DAPgene(second.CurrentResultTable2[i]);
+            temp.calculateValue(graph);
+            return temp;
+        }
     }
 }

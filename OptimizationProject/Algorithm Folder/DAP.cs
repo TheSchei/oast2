@@ -87,11 +87,16 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void cross()//jeśli zajdzie cross z P=zadane P, to losujemy z jakimś P ważonym po jakości, które się krzyżują i krzyżujemy
         {
-            throw new NotImplementedException();
+            if(random.NextDouble() < ProbabilityCrossOver)
+            {
+                CurrentResultsTable.Sort((x, y) => x.value.CompareTo(y.value));//lub odwrotnie//odpuściłem ważoną 
+                CurrentResultsTable.Add(CurrentResultsTable[0].cross(random, CurrentResultsTable[1], graph));
+            }
         }
         private void clean()//wybieramy TOP ileś najlepszych reszta do utylizacji
         {
-            throw new NotImplementedException();
+            CurrentResultsTable.Sort((x, y) => x.value.CompareTo(y.value));
+            CurrentResultsTable.RemoveRange(TargetPopulation, CurrentResultsTable.Count - TargetPopulation);//indeksy sprawdzić!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
         private void checkNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
         {
