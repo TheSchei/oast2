@@ -81,19 +81,19 @@ namespace OptimizationProject.Algorithm_Folder
             foreach (DAPchromosome chromosome in CurrentResultsTable)
             {
                 DAPchromosome uberChromosome = new DAPchromosome(chromosome);
-                NoMutations += uberChromosome.mutate(random, ProbabilityMutation);
+                NoMutations += uberChromosome.mutate(random, ProbabilityMutation, graph);
                 TemporaryResultsTable.Add(uberChromosome);
             }
         }
-        private void cross()
+        private void cross()//jeśli zajdzie cross z P=zadane P, to losujemy z jakimś P ważonym po jakości, które się krzyżują i krzyżujemy
         {
             throw new NotImplementedException();
         }
-        private void clean()
+        private void clean()//wybieramy TOP ileś najlepszych reszta do utylizacji
         {
             throw new NotImplementedException();
         }
-        private void checkNewSolution()
+        private void checkNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
         {
             throw new NotImplementedException();
         }
