@@ -21,7 +21,7 @@ namespace OptimizationProject.Algorithm_Folder
         private List<DAPchromosome> TemporaryResultsTable;
         private int Time;
         private int NoMutations;
-        private int NoGenerations;
+        private int NoGenerations;//CO TO JEST? XD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private int NoBetterSolutions;//Ilość iteracji bez poprawy
 
         public DAP(Graph graph, StopCondition condition, int startingPopulation, double probabilityCrossOver, double probabilityMutation, int timeGeneratorSeed, int conditionValue)
