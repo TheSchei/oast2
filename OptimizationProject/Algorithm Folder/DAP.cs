@@ -76,18 +76,13 @@ namespace OptimizationProject.Algorithm_Folder
             }
             return true;
         }
-        private void mutate()
+        private void mutate()//zakłądam, że każdy gen mutuje, a prawdopodobieństwo mutacji dotyczy nie tego czy chromosom zmutuje, ale czy każdy gen z osobna.
         {
             foreach (DAPchromosome chromosome in CurrentResultsTable)
             {
-                DAPchromosome temp = new DAPchromosome(chromosome);
-                foreach (DAPgene gene in temp.CurrentResultTable2)
-                    if (random.NextDouble() < ProbabilityMutation)
-                    {
-                        gene.mutate();
-                        NoMutations++;
-                    }
-                TemporaryResultsTable.Add(new DAPchromosome(temp));
+                DAPchromosome uberChromosome = new DAPchromosome(chromosome);
+                NoMutations += uberChromosome.mutate(random, ProbabilityMutation);
+                TemporaryResultsTable.Add(uberChromosome);
             }
         }
         private void cross()

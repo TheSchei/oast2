@@ -35,5 +35,16 @@ namespace OptimizationProject.Algorithm_Folder
                 for (int j = 0; j < graph.Demands[i].Paths.Count; i++)//każda ścieżka
                     value += CurrentResultTable2[i].gene[j] * graph.Demands[i].Paths[j].LinkIDs.Count;//suma = ilość zasobów * długość ścieżki//ojezu xD
         }
+        public int mutate(Random random, double ProbabilityMutation)
+        {
+            int NoMutations = 0;
+            foreach (DAPgene gene in CurrentResultTable2)
+                if (random.NextDouble() < ProbabilityMutation)
+                {
+                    gene.mutate(random);
+                    NoMutations++;
+                }
+            return NoMutations;
+        }
     }
 }

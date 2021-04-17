@@ -15,9 +15,17 @@ namespace OptimizationProject.Algorithm_Folder
         {
             this.gene = gene;
         }
-        public void mutate()
+        public void mutate(Random random)//zaimplementowane jako losowanie genu, który odda jednostkę wartości innemu genowi
         {
-            throw new NotImplementedException();
+            if (gene.Length == 1) return; // nie może mutować
+            int i = random.Next(0, gene.Length - 1);//gen oddający jednostkę wartości
+            while(gene[i] == 0)
+                i = random.Next(0, gene.Length - 1);//losujemy aż nie trafimy na niepusty gen
+            int j = random.Next(0, gene.Length - 1);//gen otrzymujący jednostkę wartości
+            while (i == j)
+                j = random.Next(0, gene.Length - 1);
+            gene[i]--;
+            gene[j]++;
         }
     }
 }
