@@ -14,6 +14,7 @@ namespace OptimizationProject.Algorithm_Folder
         private int ConditionValue;
         private double ProbabilityCrossOver;
         private double ProbabilityMutation;
+        private int TargetPopulation;
         
         Random random;
         private List<DAPchromosome> CurrentResultsTable;
@@ -21,7 +22,7 @@ namespace OptimizationProject.Algorithm_Folder
         private int Time;
         private int NoMutations;
         private int NoGenerations;
-        private int NoBetterSollutions;//Ilość iteracji bez poprawy
+        private int NoBetterSolutions;//Ilość iteracji bez poprawy
 
         public DAP(Graph graph, StopCondition condition, int startingPopulation, double probabilityCrossOver, double probabilityMutation, int timeGeneratorSeed, int conditionValue)
         {
@@ -29,6 +30,7 @@ namespace OptimizationProject.Algorithm_Folder
             Condition = condition;
             ProbabilityCrossOver = probabilityCrossOver;
             ProbabilityMutation = probabilityMutation;
+            TargetPopulation = startingPopulation;
             random = new Random(timeGeneratorSeed);
             ConditionValue = conditionValue;
 
@@ -38,7 +40,7 @@ namespace OptimizationProject.Algorithm_Folder
             Time = 0;
             NoMutations = 0;
             NoGenerations = 0;
-            NoBetterSollutions = 0;
+            NoBetterSolutions = 0;
 
         }
 
@@ -47,12 +49,11 @@ namespace OptimizationProject.Algorithm_Folder
             Result result = new Result();
             while(checkStopCondition())
             {
-                TemporaryResultsTable = new List<DAPchromosome>();
                 Time++;
-                mutate();
-                cross();
-                clean();
-                checkNewSolution();
+                cross();//do populacji zostają dodane z jakiś P zcrossowane dwa rozwiązania
+                mutate();//populacja jest kopiowana i mutowana (cała)
+                clean();//wbierane jest N najlepszych rozwiązan (N=starting population?)
+                checkNewSolution();//aktualna populacja jest sprawdzana - jesli najlepsze rozwiazanie sie zmienilo jest dopisywane do stosu (NoBetterSolutions - 0), jesli nie yo zwiekszana jest wartość NoBetterSolutions
             }
             return result;
         }
@@ -81,7 +82,11 @@ namespace OptimizationProject.Algorithm_Folder
             {
                 DAPchromosome temp = new DAPchromosome(chromosome);
                 foreach (DAPgene gene in temp.CurrentResultTable2)
-                    if (random.NextDouble() < ProbabilityMutation) gene.mutate();
+                    if (random.NextDouble() < ProbabilityMutation)
+                    {
+                        gene.mutate();
+                        NoMutations++;
+                    }
                 TemporaryResultsTable.Add(new DAPchromosome(temp));
             }
         }
