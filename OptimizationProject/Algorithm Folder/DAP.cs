@@ -17,6 +17,7 @@ namespace OptimizationProject.Algorithm_Folder
         
         Random random;
         private List<DAPchromosome> CurrentResultsTable;
+        private List<DAPchromosome> TemporaryResultsTable;
         private int Time;
         private int NoMutations;
         private int NoGenerations;
@@ -46,12 +47,12 @@ namespace OptimizationProject.Algorithm_Folder
             Result result = new Result();
             while(checkStopCondition())
             {
+                TemporaryResultsTable = new List<DAPchromosome>();
                 Time++;
-                //Mutate();
-                //Generate()?
-                //Cross();
-                //PosprzątajxD();
-                //CheckNewSolution();
+                mutate();
+                cross();
+                clean();
+                checkNewSolution();
             }
             return result;
         }
@@ -73,6 +74,28 @@ namespace OptimizationProject.Algorithm_Folder
                     break;
             }
             return true;
+        }
+        private void mutate()
+        {
+            foreach (DAPchromosome chromosome in CurrentResultsTable)
+            {
+                DAPchromosome temp = new DAPchromosome(chromosome);
+                foreach (DAPgene gene in temp.CurrentResultTable2)
+                    if (random.NextDouble() < ProbabilityMutation) gene.mutate();
+                TemporaryResultsTable.Add(new DAPchromosome(temp));
+            }
+        }
+        private void cross()
+        {
+
+        }
+        private void clean()
+        {
+
+        }
+        private void checkNewSolution()
+        {
+
         }
     }
 }
