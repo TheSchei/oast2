@@ -7,7 +7,10 @@ namespace OptimizationProject.Algorithm_Folder
     class DAPgene
     {
         public int[] gene;
-
+        public DAPgene(DAPgene gene)
+        {
+            gene.gene.CopyTo(this.gene, 0);
+        }
         public DAPgene(int[] gene)
         {
             this.gene = gene;

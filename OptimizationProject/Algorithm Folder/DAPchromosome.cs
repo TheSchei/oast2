@@ -12,7 +12,8 @@ namespace OptimizationProject.Algorithm_Folder
 
         public DAPchromosome(DAPchromosome chromosome)//konstruktor kopiujący trszeba dorobić
         {
-            throw new NotImplementedException();
+            value = chromosome.value;
+            CurrentResultTable2 = new List<DAPgene>(chromosome.CurrentResultTable2);
         }
 
         public DAPchromosome(Graph graph, Random random)//tutaj nie wiem czy nie lepiej dać wygenerowany wcześniej losowo nowy seed, i tworzyć lokalną klasę random, bo nie wiem  czy jak jest tak jak teraz, to każdy "chromosom" nie będzie taki sam
