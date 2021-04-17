@@ -92,15 +92,15 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void cross()
         {
-
+            throw new NotImplementedException();
         }
         private void clean()
         {
-
+            throw new NotImplementedException();
         }
         private void checkNewSolution()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
