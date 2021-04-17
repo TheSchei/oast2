@@ -46,7 +46,12 @@ namespace OptimizationProject.Algorithm_Folder
             Result result = new Result();
             while(checkStopCondition())
             {
-
+                Time++;
+                //Mutate();
+                //Generate()?
+                //Cross();
+                //PosprzątajxD();
+                //CheckNewSolution();
             }
             return result;
         }
