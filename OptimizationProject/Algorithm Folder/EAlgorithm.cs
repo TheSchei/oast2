@@ -118,11 +118,16 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void Cross()//jeśli zajdzie cross z P=zadane P, to losujemy z jakimś P ważonym po jakości, które się krzyżują i krzyżujemy
         {
-            if(random.NextDouble() < ProbabilityCrossOver)
-            {
-                CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));//lub odwrotnie//odpuściłem ważoną 
-                CurrentResultsTable.Add(CurrentResultsTable[0].cross(random, CurrentResultsTable[1], graph, resultType));
-            }
+            //będzie nieoptymalnie trochę :p
+            Shuffle(ref CurrentResultsTable);
+            int loops = CurrentResultsTable.Count / 2;
+            for (int i = 0; i < loops; i++)
+                if(random.NextDouble() < ProbabilityCrossOver)
+                {
+                    //CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));//niepotrzebne
+                    CurrentResultsTable.Add(CurrentResultsTable[2 * i].cross(random, CurrentResultsTable[2 * i + 1], graph, resultType));
+                }
+
         }
         private void Clean()//wybieramy TOP ileś najlepszych reszta do utylizacji
         {
@@ -139,6 +144,18 @@ namespace OptimizationProject.Algorithm_Folder
                 NoBetterSolutions = 0;
                 bestSolutionValue = CurrentResultsTable[0].GainValue;
                 BestSolutionStack.Add(new Chromosome(CurrentResultsTable[0]));
+            }
+        }
+        public void Shuffle(ref List<Chromosome> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Chromosome value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
         }
     }
