@@ -34,11 +34,15 @@ namespace OptimizationProject.Algorithm_Folder
         {
             GainValue = 0;
             List<int> loads = CalculateLoads(graph, resultType);
-            if(resultType.Equals(ResultType.DAP))
+            if (resultType.Equals(ResultType.DAP))
+            {
+                for (int i = 0; i < loads.Count; i++)
+                    loads[i] -= graph.Edges[i].Capacity;
                 GainValue = loads.Max();
+            }
             else
             {
-                GainValue = SumEdgeCosts(graph,loads);
+                GainValue = SumEdgeCosts(graph, loads);
             }
 
         }
@@ -73,9 +77,6 @@ namespace OptimizationProject.Algorithm_Folder
                     }
                 }
             }
-            for (int i = 0; i < loads.Count; i++)
-                loads[i] -= graph.Edges[i].Capacity;
-
             return loads;
         }
         public List<int> InitializeList(int Length)
