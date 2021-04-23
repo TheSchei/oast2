@@ -1,40 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using OptimizationProject.Graph_Folder;
 using OptimizationProject.Result_Folder;
 using static OptimizationProject.ProgramRunner;
+using static OptimizationProject.Result_Folder.Result;
 
 namespace OptimizationProject.Algorithm_Folder
 {
     class EAlgorithm
     {
-        List<Result> DAPResults;
-        List<Result> DDAPResults;
-        public Graph Graph;
+        private Graph graph;
+        private StopCondition Condition;
+        private int ConditionValue;
+        private double ProbabilityCrossOver;
+        private double ProbabilityMutation;
+        private int TargetPopulation;
+        
+        Random random;
+        private List<Chromosome> CurrentResultsTable;
+        private List<Chromosome> TemporaryResultsTable;
+        private List<Chromosome> BestSolutionStack;
 
-        public EAlgorithm()
+
+        //warunki stopu
+        private int Time; // czas wykonywania algorytmu
+        private int NoMutations; //liczba mutacji
+        private int NoGenerations;// liczba generacji
+        private int NoBetterSolutions;//Ilość iteracji bez poprawy
+        private int bestSolutionValue;
+
+        ResultType resultType;
+        public EAlgorithm(Graph graph, StopCondition condition, int startingPopulation, double probabilityCrossOver, double probabilityMutation, int timeGeneratorSeed, int conditionValue, ResultType resultType)
         {
-            DAPResults = new List<Result>();
-            DDAPResults = new List<Result>();
+            this.graph = graph;
+            Condition = condition;
+            ProbabilityCrossOver = probabilityCrossOver;
+            ProbabilityMutation = probabilityMutation;
+            TargetPopulation = startingPopulation;
+            random = new Random(timeGeneratorSeed);
+            ConditionValue = conditionValue;
+            this.resultType = resultType;
+
+            CurrentResultsTable = new List<Chromosome>();
+            TemporaryResultsTable = new List<Chromosome>();
+            for (int i = 0; i < startingPopulation; i++)
+                CurrentResultsTable.Add(new Chromosome(graph, random, this.resultType));
+
+            Time = 0;
+            NoMutations = 0;
+            NoGenerations = 0;
+            NoBetterSolutions = 0;
+            CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));
+            bestSolutionValue = CurrentResultsTable[0].GainValue;
+            BestSolutionStack = new List<Chromosome>();
+            BestSolutionStack.Add(new Chromosome(CurrentResultsTable[0]));
         }
-        public void Run(int StartingPopulation,double ProbabilityCrossOver, double ProbabilityMutation, int TimeGeneratorSeed, StopCondition Condition,int NumberOfCases)
+
+        public Result Run()
         {
-            for (int i = 0; i < NumberOfCases; i++)
+            Result result = new Result();
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while(CheckStopCondition())
             {
-                DAPResults.Add(RunDAPCase(StartingPopulation, ProbabilityCrossOver, ProbabilityMutation, TimeGeneratorSeed, Condition));
-                DDAPResults.Add(RunDDAPCase());
+                Time=(int)(stopwatch.ElapsedMilliseconds/1000);
+                Console.WriteLine("time of execution : {0}", Time);
+                Cross();//do populacji zostają dodane z jakiś P zcrossowane dwa rozwiązania
+
+                Mutate();//populacja jest kopiowana i mutowana (cała)
+
+                Clean();//wbierane jest N najlepszych rozwiązan (N=starting population?)
+
+                CheckNewSolution();//aktualna populacja jest sprawdzana - jesli najlepsze rozwiazanie sie zmienilo jest dopisywane do stosu (NoBetterSolutions - 0), jesli nie yo zwiekszana jest wartość NoBetterSolutions
+            }
+            stopwatch.Stop();
+            SetResult(result,resultType);
+            return result;
+        }
+        public void SetResult(Result result, ResultType resultType)
+        {
+            result.Solution = CurrentResultsTable[0];
+            result.ValueOfCostFunction = bestSolutionValue;
+            result.TypeOfResult = resultType;
+            result.NumberOfIterations = NoGenerations;
+            result.TimeOfExecution = Time;
+        }
+        private bool CheckStopCondition()
+        {
+            switch(Condition)
+            {
+                case StopCondition.Time:
+                    if (Time > ConditionValue) return false;
+                    break;
+                case StopCondition.LackOfBetterSolution:
+                    if (NoBetterSolutions > ConditionValue) return false;
+                    break;
+                case StopCondition.NoGenerations:
+                    if (NoGenerations > ConditionValue) return false;
+                    break;
+                case StopCondition.NoMutations:
+                    if (NoMutations > ConditionValue) return false;
+                    break;
+            }
+            return true;
+        }
+        private void Mutate()//zakłądam, że każdy gen mutuje, a prawdopodobieństwo mutacji dotyczy nie tego czy chromosom zmutuje, ale czy każdy gen z osobna.
+        {
+            foreach (Chromosome chromosome in CurrentResultsTable)
+            {
+                Chromosome uberChromosome = new Chromosome(chromosome);
+                NoMutations += uberChromosome.mutate(random, ProbabilityMutation, graph, resultType);
+                TemporaryResultsTable.Add(uberChromosome);
             }
         }
-        public Result RunDAPCase(int StartingPopulation, double ProbabilityCrossOver, double ProbabilityMutation, int TimeGeneratorSeed, StopCondition Condition)
+        private void Cross()//jeśli zajdzie cross z P=zadane P, to losujemy z jakimś P ważonym po jakości, które się krzyżują i krzyżujemy
         {
-
-
-            return null;
+            if(random.NextDouble() < ProbabilityCrossOver)
+            {
+                CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));//lub odwrotnie//odpuściłem ważoną 
+                CurrentResultsTable.Add(CurrentResultsTable[0].cross(random, CurrentResultsTable[1], graph, resultType));
+            }
         }
-        public Result RunDDAPCase()
+        private void Clean()//wybieramy TOP ileś najlepszych reszta do utylizacji
         {
-            return null;
+            CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));
+            CurrentResultsTable.RemoveRange(TargetPopulation, CurrentResultsTable.Count - TargetPopulation);//indeksy sprawdzić!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            ++NoGenerations; // generacja to nowa populacja więc jak usuwamy to tworzymy nową populację imo dlatego +1
+        }
+        private void CheckNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
+        {
+            if (bestSolutionValue > CurrentResultsTable[0].GainValue) NoBetterSolutions++;
+            else
+            {
+                NoBetterSolutions = 0;
+                bestSolutionValue = CurrentResultsTable[0].GainValue;
+                BestSolutionStack.Add(new Chromosome(CurrentResultsTable[0]));
+            }
         }
     }
 }

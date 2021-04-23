@@ -1,0 +1,209 @@
+Nazywam się DAP123456
+Wyniczki
+Time Stamp: 01.01.0001 00:00:00 
+Type of task: DAP 
+Value of Cost Function: 40 
+Number of Iterations: 851 
+Time of Execution: 16 
+ 
+ 
+ Description of chromosome: Chromosome: 
+Gene for demand number: 1
+14 0 2 2 
+ *********** 
+Gene for demand number: 2
+12 3 2 
+ *********** 
+Gene for demand number: 3
+1 11 4 0 
+ *********** 
+Gene for demand number: 4
+6 0 3 1 
+ *********** 
+Gene for demand number: 5
+3 3 10 1 
+ *********** 
+Gene for demand number: 6
+6 8 6 0 
+ *********** 
+Gene for demand number: 7
+4 11 0 0 
+ *********** 
+Gene for demand number: 8
+6 8 1 3 
+ *********** 
+Gene for demand number: 9
+1 6 0 12 
+ *********** 
+Gene for demand number: 10
+2 1 9 2 
+ *********** 
+Gene for demand number: 11
+6 5 0 1 
+ *********** 
+Gene for demand number: 12
+6 1 0 5 
+ *********** 
+Gene for demand number: 13
+5 1 0 10 
+ *********** 
+Gene for demand number: 14
+9 3 3 2 
+ *********** 
+Gene for demand number: 15
+1 7 0 6 
+ *********** 
+Gene for demand number: 16
+7 1 2 3 
+ *********** 
+Gene for demand number: 17
+2 8 1 
+ *********** 
+Gene for demand number: 18
+3 9 4 4 
+ *********** 
+Gene for demand number: 19
+8 9 1 
+ *********** 
+Gene for demand number: 20
+5 3 2 6 
+ *********** 
+Gene for demand number: 21
+9 5 0 5 
+ *********** 
+Gene for demand number: 22
+4 4 2 5 
+ *********** 
+Gene for demand number: 23
+2 1 11 1 
+ *********** 
+Gene for demand number: 24
+1 13 3 2 
+ *********** 
+Gene for demand number: 25
+1 5 5 8 
+ *********** 
+Gene for demand number: 26
+2 12 3 
+ *********** 
+Gene for demand number: 27
+1 1 8 1 
+ *********** 
+Gene for demand number: 28
+7 8 
+ *********** 
+Gene for demand number: 29
+4 4 3 1 
+ *********** 
+Gene for demand number: 30
+6 0 2 2 
+ *********** 
+Gene for demand number: 31
+5 2 5 
+ *********** 
+Gene for demand number: 32
+0 6 2 3 
+ *********** 
+Gene for demand number: 33
+0 2 10 
+ *********** 
+Gene for demand number: 34
+5 6 0 0 
+ *********** 
+Gene for demand number: 35
+4 2 1 4 
+ *********** 
+Gene for demand number: 36
+9 2 
+ *********** 
+Gene for demand number: 37
+7 3 4 1 
+ *********** 
+Gene for demand number: 38
+10 5 2 
+ *********** 
+Gene for demand number: 39
+5 0 14 1 
+ *********** 
+Gene for demand number: 40
+2 1 7 3 
+ *********** 
+Gene for demand number: 41
+4 3 5 1 
+ *********** 
+Gene for demand number: 42
+3 1 11 
+ *********** 
+Gene for demand number: 43
+1 2 5 5 
+ *********** 
+Gene for demand number: 44
+0 10 1 8 
+ *********** 
+Gene for demand number: 45
+0 7 6 2 
+ *********** 
+Gene for demand number: 46
+0 2 11 0 
+ *********** 
+Gene for demand number: 47
+1 1 10 7 
+ *********** 
+Gene for demand number: 48
+6 4 9 
+ *********** 
+Gene for demand number: 49
+5 2 1 4 
+ *********** 
+Gene for demand number: 50
+8 2 1 6 
+ *********** 
+Gene for demand number: 51
+2 3 4 4 
+ *********** 
+Gene for demand number: 52
+8 9 1 
+ *********** 
+Gene for demand number: 53
+2 13 4 0 
+ *********** 
+Gene for demand number: 54
+3 2 0 11 
+ *********** 
+Gene for demand number: 55
+1 3 2 10 
+ *********** 
+Gene for demand number: 56
+2 5 3 3 
+ *********** 
+Gene for demand number: 57
+1 3 12 
+ *********** 
+Gene for demand number: 58
+12 6 
+ *********** 
+Gene for demand number: 59
+10 5 0 0 
+ *********** 
+Gene for demand number: 60
+5 13 
+ *********** 
+Gene for demand number: 61
+14 
+ *********** 
+Gene for demand number: 62
+15 3 0 0 
+ *********** 
+Gene for demand number: 63
+13 2 1 4 
+ *********** 
+Gene for demand number: 64
+11 0 2 5 
+ *********** 
+Gene for demand number: 65
+4 6 
+ *********** 
+Gene for demand number: 66
+5 0 11 1 
+ *********** 
+

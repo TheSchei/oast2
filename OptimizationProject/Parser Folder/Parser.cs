@@ -25,6 +25,7 @@ namespace OptimizationProject.Parser_Folder
             XmlDocument doc = new XmlDocument();
             doc.Load(Files[choosenFileIndex]);
             XmlNodeList edges = doc.DocumentElement.SelectNodes("/network/links/link");
+            int edgeIndex = 1; // indeks krawędzi
             foreach(XmlNode edge in edges)
             {
                 int Start = Convert.ToInt32(edge.SelectSingleNode("startNode").InnerText);
@@ -32,7 +33,8 @@ namespace OptimizationProject.Parser_Folder
                 int NumberModules = Convert.ToInt32(edge.SelectSingleNode("numberOfModules").InnerText);
                 int CostModule = Convert.ToInt32(edge.SelectSingleNode("moduleCost").InnerText);
                 int SizeModule = Convert.ToInt32(edge.SelectSingleNode("linkModule").InnerText);
-                graph.CreateEdge(Start, End, NumberModules, CostModule, SizeModule);
+                graph.CreateEdge(edgeIndex,Start, End, NumberModules, CostModule, SizeModule);
+                ++edgeIndex;
             }
             // wczytanie zapotrzebowań
             XmlNodeList demands = doc.DocumentElement.SelectNodes("/network/demands/demand");
@@ -61,12 +63,14 @@ namespace OptimizationProject.Parser_Folder
         {
             string RESULT_FOLDER = @"..\..\..\Result files";
             if (!Directory.Exists(RESULT_FOLDER)) Directory.CreateDirectory(RESULT_FOLDER);//warunek jest chyba niepotrzebny, ale niech już będzie
-            FileStream outputFile = File.Create(RESULT_FOLDER + "\\" + result.getFileName() + ".txt");
-            writeLine(outputFile, "Nazywam się " + result.getFileName());
-            writeLine(outputFile, "Wyniczki");//na pewno da się zrobić to lepiej, ale jak to zobaczyłme, to tak mi C zajechało, że się nie mogłem powstrzymać
+            FileStream outputFile = File.Create(RESULT_FOLDER + "\\" + result.GetFileName() + ".txt");
+
+            WriteLine(outputFile, "Nazywam się " + result.GetFileName());
+            WriteLine(outputFile, "Wyniczki");//na pewno da się zrobić to lepiej, ale jak to zobaczyłme, to tak mi C zajechało, że się nie mogłem powstrzymać
+            WriteLine(outputFile, result.ToString()); // po to ta funkcja to String
             outputFile.Close();
         }
-        private void writeLine(FileStream fs, string s)
+        private void WriteLine(FileStream fs, string s)
         {
             byte[] info = new UTF8Encoding(true).GetBytes(s + Environment.NewLine);
             fs.Write(info, 0, info.Length);

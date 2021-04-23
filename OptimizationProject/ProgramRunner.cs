@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using OptimizationProject.Algorithm_Folder;
+using OptimizationProject.Graph_Folder;
 using OptimizationProject.Parser_Folder;
+using OptimizationProject.Result_Folder;
 
 namespace OptimizationProject
 {
@@ -11,7 +13,7 @@ namespace OptimizationProject
         public enum StopCondition { Time, NoGenerations, NoMutations, LackOfBetterSolution};
 
         private Parser Pars { get; set; }
-        private EAlgorithm Algorithm { get; set; }
+        private AlgorithmRunner Algorithm { get; set; }
         private int StartingPopulation { get; set; }
         private double ProbabilityCrossOver { get; set; }
         private double ProbabilityOfMutation { get; set; }
@@ -19,10 +21,12 @@ namespace OptimizationProject
         private int NumberOfCases { get; set; } // liczba grafów
         private StopCondition Condition { get; set; }
 
+        private int ConditionValue { get; set; }
+
         public ProgramRunner()
         {
             Pars = new Parser();
-            Algorithm = new EAlgorithm();
+            Algorithm = new AlgorithmRunner();
             NumberOfCases = Pars.Files.Count;
 
         }
@@ -50,9 +54,13 @@ namespace OptimizationProject
                 else
                 {
                     FillDataToAlgorithm();
-                    Algorithm.Graph = Pars.ReadConfigFiles(FileChooser());
-                    Algorithm.Run(StartingPopulation, ProbabilityCrossOver, ProbabilityOfMutation, TimeGeneratorSeed,Condition, NumberOfCases);
-                    
+                    Graph graph = Pars.ReadConfigFiles(FileChooser());
+
+                    Result DAPResult = Algorithm.RunAlgorithm(graph, StartingPopulation, ProbabilityCrossOver, ProbabilityOfMutation, TimeGeneratorSeed, Condition, ConditionValue, Result.ResultType.DAP);
+                    Pars.WriteResultToFile(DAPResult);
+
+                    Result DDAPResult=Algorithm.RunAlgorithm(graph, StartingPopulation, ProbabilityCrossOver, ProbabilityOfMutation, TimeGeneratorSeed, Condition, ConditionValue, Result.ResultType.DDAP);
+                    Pars.WriteResultToFile(DDAPResult);
                 }
             }
             
@@ -68,7 +76,8 @@ namespace OptimizationProject
             Console.WriteLine("Wpisz prawdopodobieństwo krzyżowania");
 
             ProbabilityCrossOver = Convert.ToDouble(Console.ReadLine()); // powinno się wyjątek dać tutać no ale cóż
-            ProbabilityOfMutation = 1.0 - ProbabilityCrossOver;
+            Console.WriteLine("Wpisz prawdopodobieństwo mutacji");
+            ProbabilityOfMutation = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Wpisz ziarno dla generatora liczb :)");
             TimeGeneratorSeed = Convert.ToInt32(Console.ReadLine());
@@ -99,6 +108,7 @@ namespace OptimizationProject
                     ChoiceOfStopCondition();
                     break;
             }
+            ChooseConditionValue(); // wybór wartości dla warunku stopu
         }
         public void ShowListOfPossibleStopConditions()
         {
@@ -126,6 +136,11 @@ namespace OptimizationProject
                 }
             }
             return theChoosenOne - 1;
+        }
+        public void ChooseConditionValue()
+        {
+            Console.WriteLine("Wpisz wartość dla warunku stopu");
+            ConditionValue= Convert.ToInt32(Console.ReadLine());
         }
     }
 }
