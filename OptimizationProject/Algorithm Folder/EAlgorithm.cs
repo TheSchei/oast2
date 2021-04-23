@@ -66,7 +66,7 @@ namespace OptimizationProject.Algorithm_Folder
             while(CheckStopCondition())
             {
                 Time=(int)(stopwatch.ElapsedMilliseconds/1000);
-                Console.WriteLine("time of execution : {0}", Time);
+                //Console.WriteLine("time of execution : {0}", Time);
                 Cross();//do populacji zostają dodane z jakiś P zcrossowane dwa rozwiązania
 
                 Mutate();//populacja jest kopiowana i mutowana (cała)
@@ -86,6 +86,7 @@ namespace OptimizationProject.Algorithm_Folder
             result.TypeOfResult = resultType;
             result.NumberOfIterations = NoGenerations;
             result.TimeOfExecution = Time;
+            result.BestSolutionStack = BestSolutionStack;
         }
         private bool CheckStopCondition()
         {
@@ -125,13 +126,14 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void Clean()//wybieramy TOP ileś najlepszych reszta do utylizacji
         {
+            CurrentResultsTable.AddRange(TemporaryResultsTable);
             CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));
             CurrentResultsTable.RemoveRange(TargetPopulation, CurrentResultsTable.Count - TargetPopulation);//indeksy sprawdzić!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             ++NoGenerations; // generacja to nowa populacja więc jak usuwamy to tworzymy nową populację imo dlatego +1
         }
         private void CheckNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
         {
-            if (bestSolutionValue > CurrentResultsTable[0].GainValue) NoBetterSolutions++;
+            if (bestSolutionValue >= CurrentResultsTable[0].GainValue) NoBetterSolutions++;
             else
             {
                 NoBetterSolutions = 0;

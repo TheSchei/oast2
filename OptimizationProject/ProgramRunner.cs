@@ -34,21 +34,21 @@ namespace OptimizationProject
         public void Run()
         {
             
-            Console.WriteLine("Gitara siema w mojej optymalizacji!\n Wpisz swój super wybór");
+            Console.WriteLine("OAST - Projekt 2!\n Wpisz swój super wybór");
             int Choice = 0;
             while(true)
             {
-                Console.WriteLine("1. Chcesz optymalizację (XD)");
-                Console.WriteLine("2. Zabij ten proces... i siebie też");
+                Console.WriteLine("1. Wykonaj optymalizację");
+                Console.WriteLine("2. Zakończ proces");
                 Choice = Convert.ToInt32(Console.ReadLine());
                 if(Choice != 1 && Choice !=2)
                 {
-                    Console.WriteLine("Kurwa czytać nie umiesz? jeszcze raz");
+                    Console.WriteLine("Złą opcja");
                     continue;
                 }
                 else if(Choice==2)
                 {
-                    Console.WriteLine("Mądra decyzja");
+                    Console.WriteLine("Zamykanie programu");
                     break;
                 }
                 else
@@ -68,8 +68,8 @@ namespace OptimizationProject
 
         public void FillDataToAlgorithm()
         {
-            Console.WriteLine("ale z ciebie chory pojeb");
-            Console.WriteLine("Wpisz liczebnosć początkowej populacji mordeczko");
+            Console.WriteLine("Konfiguracja:");
+            Console.WriteLine("Wpisz liczebnosć początkowej populacji");
 
             StartingPopulation = Convert.ToInt32(Console.ReadLine());
 
@@ -79,7 +79,7 @@ namespace OptimizationProject
             Console.WriteLine("Wpisz prawdopodobieństwo mutacji");
             ProbabilityOfMutation = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Wpisz ziarno dla generatora liczb :)");
+            Console.WriteLine("Wpisz ziarno dla generatora liczb");
             TimeGeneratorSeed = Convert.ToInt32(Console.ReadLine());
             ChoiceOfStopCondition();
         }
@@ -112,7 +112,7 @@ namespace OptimizationProject
         }
         public void ShowListOfPossibleStopConditions()
         {
-            Console.WriteLine("1.Time Condition");
+            Console.WriteLine("1.Time Condition [s]");
             Console.WriteLine("2.Number of Generations");
             Console.WriteLine("3.Number of Mutations");
             Console.WriteLine("4.No Better solution");
@@ -123,7 +123,7 @@ namespace OptimizationProject
             int theChoosenOne = 0;
             while(theChoosenOne <= 0 || theChoosenOne > Pars.Files.Count)
             {
-                Console.WriteLine("Jaka parówa wariacie?");
+                Console.WriteLine("Wybierz sieć do optymalizacji?");
                 Pars.PrintFiles();
                 try
                 {
@@ -131,7 +131,7 @@ namespace OptimizationProject
                 }
                 catch
                 {
-                    Console.WriteLine("Parówa mówiłem");
+                    Console.WriteLine("Błąd - wybierz jeszcze raz");
                     theChoosenOne = 0;
                 }
             }

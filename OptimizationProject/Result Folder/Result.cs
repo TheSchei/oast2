@@ -16,18 +16,25 @@ namespace OptimizationProject.Result_Folder
         public double TimeOfExecution { get; set; }
         public Chromosome Solution { get; set; }
         public Demand demand { get; set; }
+        public List<Chromosome> BestSolutionStack { get; set; }
 
         public override string ToString()
         {
             string ResultString = "Time Stamp: " + DateTime.Now.ToString() + " \nType of task: " + TypeOfResult.ToString() + " \n" +
                 "Value of Cost Function: " + ValueOfCostFunction.ToString() + " \nNumber of Iterations: " + NumberOfIterations.ToString() + " \n" +
-                "Time of Execution: " + TimeOfExecution.ToString() + " \n \n \n Description of chromosome: " + Solution.ToString();
+                "Time of Execution: " + TimeOfExecution.ToString() + "\n\nBest solution stack:" + Environment.NewLine;
+
+            foreach (Chromosome chrom in BestSolutionStack)
+                ResultString += chrom.ToShortString();
+            ResultString += "======================================";
+
+            ResultString += " \n \n \n Description of chromosome: " + Solution.ToString();
 
             return ResultString;
         }
         public string GetFileName()
         {
-            return TypeOfResult.ToString() + " " + DateTime.Now.ToString("yyyy-MM-dd");
+            return TypeOfResult.ToString() + " " + DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH'-'mm'-'ss");
         }
 
 

@@ -124,5 +124,10 @@ namespace OptimizationProject.Algorithm_Folder
             }
             return Result;
         }
+        public string ToShortString()
+        {
+            string Result = "Chromosome value: " + GainValue + "\n";
+            return Result;
+        }
     }
 }
