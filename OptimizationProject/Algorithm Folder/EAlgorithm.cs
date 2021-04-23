@@ -31,6 +31,9 @@ namespace OptimizationProject.Algorithm_Folder
         private int NoBetterSolutions;//Ilość iteracji bez poprawy
         private int bestSolutionValue;
 
+        private int TimeToBest;
+        private int GenerationsToBest;
+
         ResultType resultType;
         public EAlgorithm(Graph graph, StopCondition condition, int startingPopulation, double probabilityCrossOver, double probabilityMutation, int timeGeneratorSeed, int conditionValue, ResultType resultType)
         {
@@ -40,7 +43,7 @@ namespace OptimizationProject.Algorithm_Folder
             ProbabilityMutation = probabilityMutation;
             TargetPopulation = startingPopulation;
             random = new Random(timeGeneratorSeed);
-            ConditionValue = conditionValue;
+            ConditionValue = (condition == StopCondition.Time) ? conditionValue * 1000 : conditionValue;
             this.resultType = resultType;
 
             CurrentResultsTable = new List<Chromosome>();
@@ -56,6 +59,8 @@ namespace OptimizationProject.Algorithm_Folder
             bestSolutionValue = CurrentResultsTable[0].GainValue;
             BestSolutionStack = new List<Chromosome>();
             BestSolutionStack.Add(new Chromosome(CurrentResultsTable[0]));
+            TimeToBest = 0;
+            GenerationsToBest = 0;
         }
 
         public Result Run()
@@ -65,7 +70,7 @@ namespace OptimizationProject.Algorithm_Folder
             stopwatch.Start();
             while(CheckStopCondition())
             {
-                Time=(int)(stopwatch.ElapsedMilliseconds/1000);
+                Time=(int)stopwatch.ElapsedMilliseconds;
                 //Console.WriteLine("time of execution : {0}", Time);
                 Cross();//do populacji zostają dodane z jakiś P zcrossowane dwa rozwiązania
 
@@ -87,6 +92,8 @@ namespace OptimizationProject.Algorithm_Folder
             result.NumberOfIterations = NoGenerations;
             result.TimeOfExecution = Time;
             result.BestSolutionStack = BestSolutionStack;
+            result.TimeToBest = TimeToBest;
+            result.GenerationsToBest = GenerationsToBest;
         }
         private bool CheckStopCondition()
         {
@@ -133,7 +140,7 @@ namespace OptimizationProject.Algorithm_Folder
         {
             CurrentResultsTable.AddRange(TemporaryResultsTable);
             CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));
-            CurrentResultsTable.RemoveRange(TargetPopulation, CurrentResultsTable.Count - TargetPopulation);//indeksy sprawdzić!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            CurrentResultsTable.RemoveRange(TargetPopulation, CurrentResultsTable.Count - TargetPopulation);
             ++NoGenerations; // generacja to nowa populacja więc jak usuwamy to tworzymy nową populację imo dlatego +1
         }
         private void CheckNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
@@ -141,6 +148,8 @@ namespace OptimizationProject.Algorithm_Folder
             if (bestSolutionValue <= CurrentResultsTable[0].GainValue) NoBetterSolutions++;
             else
             {
+                TimeToBest = Time;
+                GenerationsToBest = NoGenerations;
                 NoBetterSolutions = 0;
                 bestSolutionValue = CurrentResultsTable[0].GainValue;
                 BestSolutionStack.Add(new Chromosome(CurrentResultsTable[0]));

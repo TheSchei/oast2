@@ -17,12 +17,14 @@ namespace OptimizationProject.Result_Folder
         public Chromosome Solution { get; set; }
         public Demand demand { get; set; }
         public List<Chromosome> BestSolutionStack { get; set; }
+        public int TimeToBest { get; set; }
+        public int GenerationsToBest { get; set; }
 
         public override string ToString()
         {
             string ResultString = "Time Stamp: " + DateTime.Now.ToString() + " \nType of task: " + TypeOfResult.ToString() + " \n" +
-                "Value of Cost Function: " + ValueOfCostFunction.ToString() + " \nNumber of Iterations: " + NumberOfIterations.ToString() + " \n" +
-                "Time of Execution: " + TimeOfExecution.ToString() + "\n\nBest solution stack:" + Environment.NewLine;
+                "Value of Cost Function: " + ValueOfCostFunction.ToString() + " \nNumber of Iterations: " + NumberOfIterations.ToString() +
+                "\nTime of Execution: " + TimeOfExecution.ToString() + " ms\nTime to best: " + TimeToBest.ToString() + " ms\nGenerations to best: " + GenerationsToBest.ToString() + "\n\nBest solution stack:" + Environment.NewLine;
 
             foreach (Chromosome chrom in BestSolutionStack)
                 ResultString += chrom.ToShortString();
