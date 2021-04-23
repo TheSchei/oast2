@@ -65,8 +65,7 @@ namespace OptimizationProject.Parser_Folder
             if (!Directory.Exists(RESULT_FOLDER)) Directory.CreateDirectory(RESULT_FOLDER);//warunek jest chyba niepotrzebny, ale niech już będzie
             FileStream outputFile = File.Create(RESULT_FOLDER + "\\" + result.GetFileName() + ".txt");
 
-            WriteLine(outputFile, "Nazywam się " + result.GetFileName());
-            WriteLine(outputFile, "Wyniczki");//na pewno da się zrobić to lepiej, ale jak to zobaczyłme, to tak mi C zajechało, że się nie mogłem powstrzymać
+            WriteLine(outputFile, "Rezultaty");//na pewno da się zrobić to lepiej, ale jak to zobaczyłme, to tak mi C zajechało, że się nie mogłem powstrzymać
             WriteLine(outputFile, result.ToString()); // po to ta funkcja to String
             outputFile.Close();
         }

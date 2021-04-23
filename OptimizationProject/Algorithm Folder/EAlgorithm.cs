@@ -133,7 +133,7 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void CheckNewSolution()//sprawdzamy czy wynik lepszy, jeśli tak, to dodajemy do Resultsów, do stosu postępu, jeśli nie, to dodajemy do mziennej kolejny nieudany eksperyment na ludziach
         {
-            if (bestSolutionValue >= CurrentResultsTable[0].GainValue) NoBetterSolutions++;
+            if (bestSolutionValue <= CurrentResultsTable[0].GainValue) NoBetterSolutions++;
             else
             {
                 NoBetterSolutions = 0;
