@@ -94,6 +94,7 @@ namespace OptimizationProject.Algorithm_Folder
             result.BestSolutionStack = BestSolutionStack;
             result.TimeToBest = TimeToBest;
             result.GenerationsToBest = GenerationsToBest;
+            result.graph = graph;
         }
         private bool CheckStopCondition()
         {
