@@ -36,8 +36,7 @@ namespace OptimizationProject.Algorithm_Folder
             List<int> loads = CalculateLoads(graph, resultType);
             if (resultType.Equals(ResultType.DAP))
             {
-                for (int i = 0; i < loads.Count; i++)
-                    loads[i] -= graph.Edges[i].Capacity;
+
                 GainValue = loads.Max();
             }
             else
@@ -53,8 +52,13 @@ namespace OptimizationProject.Algorithm_Folder
             int sum = 0;
            for(int i=0; i<graph.Edges.Count;i++)
             {
-                y = (int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule);
-                sum += y * graph.Edges[i].CostOfModule;
+                if (loads[i] <= 0)
+                    continue;
+                else
+                {
+                    y = (int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule);
+                    sum += y * graph.Edges[i].CostOfModule;
+                }
             }  
             return sum;
         }
@@ -77,6 +81,8 @@ namespace OptimizationProject.Algorithm_Folder
                     }
                 }
             }
+            for (int i = 0; i < loads.Count; i++)
+                loads[i] -= graph.Edges[i].Capacity;
             return loads;
         }
         public List<int> InitializeList(int Length)
