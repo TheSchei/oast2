@@ -15,7 +15,9 @@ namespace OptimizationProject.Algorithm_Folder
         public Chromosome(Chromosome chromosome)//konstruktor kopiujący trszeba dorobić
         {
             GainValue = chromosome.GainValue;
-            ListOfGenes = new List<Gene>(chromosome.ListOfGenes);
+            ListOfGenes = new List<Gene>();
+            foreach (Gene gene in chromosome.ListOfGenes)
+                ListOfGenes.Add(new Gene(gene));
         }
 
         public Chromosome(Graph graph, Random random, ResultType resultType)//tutaj nie wiem czy nie lepiej dać wygenerowany wcześniej losowo nowy seed, i tworzyć lokalną klasę random, bo nie wiem  czy jak jest tak jak teraz, to każdy "chromosom" nie będzie taki sam
@@ -30,7 +32,7 @@ namespace OptimizationProject.Algorithm_Folder
             }
             CalculateGainValue(graph, resultType);
         }
-        private void CalculateGainValue(Graph graph, ResultType resultType)
+        public void CalculateGainValue(Graph graph, ResultType resultType)
         {
             GainValue = 0;
             List<int> loads = CalculateLoads(graph, resultType);

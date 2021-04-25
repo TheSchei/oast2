@@ -9,7 +9,11 @@ namespace OptimizationProject.Algorithm_Folder
         public int[] ValueOnPath;
         public Gene(Gene gene)
         {
-            gene.ValueOnPath.CopyTo(this.ValueOnPath, 0);
+            ValueOnPath = new int[gene.ValueOnPath.Length];
+            for (int i = 0; i < gene.ValueOnPath.Length; i++)
+            {
+                ValueOnPath[i] = gene.ValueOnPath[i];
+            }
         }
         public Gene(int[] ValueOnPath)
         {

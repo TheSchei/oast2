@@ -33,7 +33,7 @@ namespace OptimizationProject.Parser_Folder
                 int NumberModules = Convert.ToInt32(edge.SelectSingleNode("numberOfModules").InnerText);
                 int CostModule = Convert.ToInt32(edge.SelectSingleNode("moduleCost").InnerText);
                 int SizeModule = Convert.ToInt32(edge.SelectSingleNode("linkModule").InnerText);
-                graph.CreateEdge(edgeIndex,Start, End, NumberModules, CostModule, SizeModule);
+                graph.CreateEdge(edgeIndex,Start, End, SizeModule, NumberModules, CostModule);
                 ++edgeIndex;
             }
             // wczytanie zapotrzebowań

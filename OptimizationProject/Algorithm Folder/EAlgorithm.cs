@@ -117,6 +117,7 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void Mutate()//zakłądam, że każdy gen mutuje, a prawdopodobieństwo mutacji dotyczy nie tego czy chromosom zmutuje, ale czy każdy gen z osobna.
         {
+            TemporaryResultsTable = new List<Chromosome>();
             foreach (Chromosome chromosome in CurrentResultsTable)
             {
                 Chromosome uberChromosome = new Chromosome(chromosome);
@@ -126,13 +127,11 @@ namespace OptimizationProject.Algorithm_Folder
         }
         private void Cross()//jeśli zajdzie cross z P=zadane P, to losujemy z jakimś P ważonym po jakości, które się krzyżują i krzyżujemy
         {
-            //będzie nieoptymalnie trochę :p
             Shuffle(ref CurrentResultsTable);
             int loops = CurrentResultsTable.Count / 2;
             for (int i = 0; i < loops; i++)
                 if(random.NextDouble() < ProbabilityCrossOver)
                 {
-                    //CurrentResultsTable.Sort((x, y) => x.GainValue.CompareTo(y.GainValue));//niepotrzebne
                     CurrentResultsTable.Add(CurrentResultsTable[2 * i].cross(random, CurrentResultsTable[2 * i + 1], graph, resultType));
                 }
 

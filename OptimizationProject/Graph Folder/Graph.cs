@@ -14,7 +14,7 @@ namespace OptimizationProject.Graph_Folder
             Edges = new List<Edge>();
             Demands = new List<Demand>();
         }
-        public void CreateEdge(int Id, int Start, int End, int NumberModules, int CostModule, int SizeModule)
+        public void CreateEdge(int Id, int Start, int End, int SizeModule, int NumberModules, int CostModule)
         {
             Edges.Add(new Edge(Id, Start, End, SizeModule, NumberModules, CostModule));
         }
