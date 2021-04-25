@@ -76,6 +76,8 @@ namespace OptimizationProject.Algorithm_Folder
 
                 Clean();//wbierane jest N najlepszych rozwiązan (N=starting population?)
 
+                Time = (int)stopwatch.ElapsedMilliseconds;
+
                 CheckNewSolution();//aktualna populacja jest sprawdzana - jesli najlepsze rozwiazanie sie zmienilo jest dopisywane do stosu (NoBetterSolutions - 0), jesli nie yo zwiekszana jest wartość NoBetterSolutions
             }
             stopwatch.Stop();
@@ -98,7 +100,6 @@ namespace OptimizationProject.Algorithm_Folder
             switch(Condition)
             {
                 case StopCondition.Time:
-                    Time = (int)stopwatch.ElapsedMilliseconds;
                     if (Time > ConditionValue) return false;
                     break;
                 case StopCondition.LackOfBetterSolution:
