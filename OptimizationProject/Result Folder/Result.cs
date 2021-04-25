@@ -62,7 +62,7 @@ namespace OptimizationProject.Result_Folder
             for (int i = 1; i < loads.Count; i++)
             {
                 output += Environment.NewLine;
-                output += (i + 1).ToString() + " " +  loads[i].ToString() + " " + Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule).ToString();
+                output += (i + 1).ToString() + " " +  loads[i].ToString() + " " + ((int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule)).ToString();
             }
             return output;
         }

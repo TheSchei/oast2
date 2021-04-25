@@ -53,9 +53,9 @@ namespace OptimizationProject.Algorithm_Folder
             int sum = 0;
            for(int i=0; i<graph.Edges.Count;i++)
             {
-                y = (int)Math.Ceiling((decimal)(loads[i] / graph.Edges[i].SizeOfModule));
+                y = (int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule);
                 sum += y * graph.Edges[i].CostOfModule;
-            }
+            }  
             return sum;
         }
 
