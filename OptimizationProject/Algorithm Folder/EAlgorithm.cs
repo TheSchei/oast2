@@ -70,8 +70,6 @@ namespace OptimizationProject.Algorithm_Folder
             stopwatch.Start();
             while(CheckStopCondition())
             {
-                Time=(int)stopwatch.ElapsedMilliseconds;
-                //Console.WriteLine("time of execution : {0}", Time);
                 Cross();//do populacji zostają dodane z jakiś P zcrossowane dwa rozwiązania
 
                 Mutate();//populacja jest kopiowana i mutowana (cała)
@@ -100,6 +98,7 @@ namespace OptimizationProject.Algorithm_Folder
             switch(Condition)
             {
                 case StopCondition.Time:
+                    Time = (int)stopwatch.ElapsedMilliseconds;
                     if (Time > ConditionValue) return false;
                     break;
                 case StopCondition.LackOfBetterSolution:
