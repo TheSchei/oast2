@@ -60,12 +60,15 @@ namespace OptimizationProject.Result_Folder
             List<int> loads = Solution.CalculateLoads(graph, TypeOfResult);
             for(int i = 0; i < loads.Count; i++)
                 loads[i] += graph.Edges[i].NumberOfModules * graph.Edges[i].SizeOfModule;
-            int temp = (int)Math.Ceiling((double)loads[0] / graph.Edges[0].SizeOfModule);
+            int temp;
+            if (ResultType.DAP == TypeOfResult) temp = graph.Edges[0].NumberOfModules;
+            else temp = (int)Math.Ceiling((double)loads[0] / graph.Edges[0].SizeOfModule);
             output += "1 " + loads[0].ToString() + " " + Math.Max(temp, graph.Edges[0].NumberOfModules).ToString();
             for (int i = 1; i < loads.Count; i++)
             {
                 output += Environment.NewLine;
-                temp = (int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule);
+                if (ResultType.DAP == TypeOfResult) temp = graph.Edges[i].NumberOfModules;
+                else temp = (int)Math.Ceiling((double)loads[i] / graph.Edges[i].SizeOfModule);
                 output += (i + 1).ToString() + " " + loads[i].ToString() + " " + Math.Max(temp, graph.Edges[i].NumberOfModules).ToString();
             }
             return output;
